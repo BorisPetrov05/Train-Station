@@ -10,6 +10,10 @@ protected:
 
 public:
     Wagon(const String& id, int seatCount, double basePrice);
+    Wagon(const Wagon& other);
+    Wagon& operator=(const Wagon& other);
+    Wagon(Wagon&& other) noexcept;
+    Wagon& operator=(Wagon&& other) noexcept;
     virtual ~Wagon();
 
     const String& getID() const;
