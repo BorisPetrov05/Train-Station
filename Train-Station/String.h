@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cstring>
+#define _CRT_SECURE_NO_WARNINGS
 
 class String 
 {
@@ -71,5 +72,10 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const String& str) 
     {
         return os << str.data;
+    }
+
+    bool empty() const
+    {
+        return length == 0;
     }
 };
