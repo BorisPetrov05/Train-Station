@@ -7,11 +7,17 @@ class FirstClassWagon : public Wagon
     bool foodIncluded;
 
 public:
-    FirstClassWagon(const String& id, double basePrice, double comfortFactor);
+    FirstClassWagon(const String& id, int seatCount, double basePrice, double comfortFactor, bool foodIncluded);
+    FirstClassWagon(const FirstClassWagon& other);
+    FirstClassWagon& operator=(const FirstClassWagon& other);
+    FirstClassWagon(FirstClassWagon&& other) noexcept;
+    FirstClassWagon& operator=(FirstClassWagon&& other) noexcept;
+    virtual ~FirstClassWagon();
 
-    void setFoodIncluded(bool included);
+    double getComfortFactor() const;
+    bool isFoodIncluded() const;
 
-    double calculatePrice(size_t seatIndex, double extra = 0) const override;
+    virtual double calculatePrice(size_t seatIndex, double extra = 0) const override;
 
-    void printLayout() const override;
+    virtual void printLayout() const override;
 };

@@ -141,6 +141,7 @@
     <ClInclude Include="Wagon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FirstClassWagon.cpp" />
     <ClCompile Include="Wagon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
