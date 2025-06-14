@@ -1,6 +1,5 @@
 #include "Wagon.h"
 
-
 Wagon::Wagon(const String& id, int seatCount, double basePrice) : wagonId(id), seatCount(seatCount), basePrice(basePrice) 
 {
 

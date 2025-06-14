@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include "Train.h"
 
-class Station 
+class Station
 {
 private:
     String name;
@@ -13,8 +13,18 @@ private:
 public:
     Station(const String& name);
 
-    const String& getName() const;
+    Station(const Station& other);
+    Station& operator=(const Station& other);
+    Station(Station&& other) noexcept;
+    Station& operator=(Station&& other) noexcept;
+    ~Station();
 
-    const Vector<Train*>& getDepartures();
-    const Vector<Train*>& getArrivals();
+    const String& getName() const;
+    const Vector<Train*>& getDepartures() const;
+    const Vector<Train*>& getArrivals() const;
+
+    void addDeparture(Train* train);
+    void addArrival(Train* train);
+    void removeDeparture(const String& trainID);
+    void removeArrival(const String& trainID);
 };

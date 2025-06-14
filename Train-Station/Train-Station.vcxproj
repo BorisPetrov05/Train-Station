@@ -143,6 +143,8 @@
   <ItemGroup>
     <ClCompile Include="FirstClassWagon.cpp" />
     <ClCompile Include="SleepingWagon.cpp" />
+    <ClCompile Include="Station.cpp" />
+    <ClCompile Include="Train.cpp" />
     <ClCompile Include="Wagon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

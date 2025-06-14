@@ -3,8 +3,9 @@
 #include "Vector.h"
 #include "Wagon.h"
 
-class Train 
+class Train
 {
+private:
     String trainID;
     String destination;
     String departureTime;
@@ -14,14 +15,27 @@ class Train
     Vector<Wagon*> wagons;
 
 public:
-    Train(const String& id, const String& dest, const String& dep, const String& arr, double dist, double speed)
-        : trainID(id), destination(dest), departureTime(dep), arrivalTime(arr), distance(dist), speed(speed) {}
+    Train(const String& id, const String& dest, const String& dep,
+        const String& arr, double dist, double speed);
 
-    const String& getID() const { return trainID; }
-    const String& getDestination() const { return destination; }
-    const Vector<Wagon*>& getWagons() const { return wagons; }
+    Train(const Train& other);
+    Train& operator=(const Train& other);
+    Train(Train&& other) noexcept;
+    Train& operator=(Train&& other) noexcept;
+    ~Train();
 
-    void addWagon(Wagon* w) { wagons.push_back(w); }
+    const String& getID() const;
+    const String& getDestination() const;
+    const String& getDepartureTime() const;
+    const String& getArrivalTime() const;
+    double getDistance() const;
+    double getSpeed() const;
+    const Vector<Wagon*>& getWagons() const;
+
+    void addWagon(Wagon* wagon);
     void removeWagon(const String& wagonId);
     Wagon* findWagon(const String& wagonId);
+
+    double calculateTotalPrice() const;
+    size_t getTotalSeats() const;
 };
