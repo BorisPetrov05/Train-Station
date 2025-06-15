@@ -1,15 +1,6 @@
 #pragma once
-#include "String.h"
-#include "Vector.h"
-#include "Station.h"
-#include "Train.h"
-#include "Wagon.h"
-#include "FirstClassWagon.h"
-#include "SecondClassWagon.h"
-#include "SleepingWagon.h"
-#include "DiscountCard.h"
-#include "Ticket.h"
 #include "User.h"
+#include "DiscountCard.h"
 #include <fstream>
 #include <iostream>
 

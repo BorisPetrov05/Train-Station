@@ -170,7 +170,7 @@ void User::printScheduleDestination(const Vector<Train>& trains, const Station& 
 
 	for (size_t i = 0; i < trains.size(); ++i)
 	{
-		printTrain(trains[i]);
+		trains[i].print();
 	}
 }
 
@@ -186,7 +186,6 @@ void User::printScheduleAtTime(const Station& station, const String& date, const
 	std::cout << "| Arrival Time  | Arrival Platform | Train ID | Starting station | Status |" << std::endl;
 	std::cout << "------------------------------------------------------------------------" << std::endl;
 
-	// Helper function to compare time strings (HH:MM format)
 	auto isTimeAfterOrEqual = [](const String& trainTime, const String& filterTime) -> bool 
 		{
 		return strcmp(trainTime.c_str(), filterTime.c_str()) >= 0;
@@ -232,7 +231,7 @@ void User::printScheduleAtTime(const Station& station, const String& date, const
 void User::printWagon(const Train& train, const Wagon& wagon) const
 {
 	std::cout << "Train: ";
-	printTrain(train);
+	train.print();
 	std::cout << "Wagon: ";
 	std::cout << "=== Wagon ID: " << wagon.getID() << " ===" << std::endl;
 	wagon.print();

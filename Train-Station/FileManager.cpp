@@ -54,11 +54,7 @@ bool FileManager::fileExists(const String& filename)
 
 void FileManager::createDirectoryIfNotExists(const String& path)
 {
-#ifdef _WIN32
-    _mkdir(path.c_str());
-#else
-    mkdir(path.c_str(), 0777);
-#endif
+    _mkdir(path.c_str()); //linker error
 }
 
 bool FileManager::saveStations(const Vector<Station*>& stations)

@@ -1,7 +1,7 @@
 #pragma once
+#pragma warning(disable:4996)
 #include <iostream>
 #include <cstring>
-#define _CRT_SECURE_NO_WARNINGS
 
 class String 
 {
