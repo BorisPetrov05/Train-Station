@@ -18,5 +18,5 @@ public:
     double getPricePer100km() const;
 
     virtual double calculatePrice(size_t seatIndex, double extra = 0) const override;
-    virtual void printLayout() const override;
+    virtual void print() const override;
 };

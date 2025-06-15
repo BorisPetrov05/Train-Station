@@ -58,3 +58,10 @@ double Wagon::getBasePrice() const
 {
 	return basePrice;
 }
+
+void Wagon::print() const
+{
+	std::cout << "Wagon ID: " << wagonId.c_str() << std::endl;
+	std::cout << "Seat Count: " << seatCount << std::endl;
+	std::cout << "Base Price: $" << basePrice << std::endl;
+}

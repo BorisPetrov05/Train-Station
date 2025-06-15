@@ -21,5 +21,5 @@ public:
     double getBasePrice() const;
 
     virtual double calculatePrice(size_t seatIndex, double extra = 0) const = 0;
-    virtual void printLayout() const = 0;
+    virtual void print() const;
 };

@@ -143,10 +143,12 @@
   <ItemGroup>
     <ClCompile Include="DiscountCard.cpp" />
     <ClCompile Include="FirstClassWagon.cpp" />
+    <ClCompile Include="SecondClassWagon.cpp" />
     <ClCompile Include="SleepingWagon.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Ticket.cpp" />
     <ClCompile Include="Train.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="Wagon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

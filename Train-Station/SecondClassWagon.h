@@ -1,14 +1,23 @@
 #pragma once
 #include "Wagon.h"
 
-class SecondClassWagon : public Wagon 
+class SecondClassWagon : public Wagon
 {
+private:
     double baggagePricePerKg;
 
 public:
-    SecondClassWagon(const String& id, double basePrice, double baggagePricePerKg);
+    SecondClassWagon();
+    SecondClassWagon(const SecondClassWagon& other);
+    SecondClassWagon& operator=(const SecondClassWagon& other);
+    SecondClassWagon(SecondClassWagon&& other) noexcept;
+    SecondClassWagon& operator=(SecondClassWagon&& other) noexcept;
+    ~SecondClassWagon();
 
-    double calculatePrice(size_t seatIndex, double baggageKg) const override;
+    SecondClassWagon(const String& wagonId, double basePrice, double baggagePricePerKg);
 
-    void printLayout() const override;
+    double getBaggagePricePerKg() const;
+
+    double calculatePrice(size_t seatIndex, double weight = 0) const override;
+    void print() const;
 };

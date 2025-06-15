@@ -56,10 +56,13 @@ double SleepingWagon::calculatePrice(size_t seatIndex, double extra) const
     return getBasePrice() + distancePrice;
 }
 
-void SleepingWagon::printLayout() const
+void SleepingWagon::print() const
 {
-    std::cout << "Sleeping Wagon ID: " << getID() << std::endl;
-    std::cout << "Berths: " << getSeatCount() << std::endl;
+    Wagon::print();
     std::cout << "Price per 100km: $" << pricePer100km << std::endl;
-    std::cout << "Layout: Comfortable sleeping berths with privacy curtains" << std::endl;
+    std::cout << "|Bed 01|" << std::endl;
+    std::cout << "|Bed 02|" << std::endl;
+    std::cout << "|Bed 03|" << std::endl;
+    std::cout << "|Bed 04|" << std::endl;
+    std::cout << "|Bed 05|" << std::endl;
 }

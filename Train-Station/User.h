@@ -1,8 +1,9 @@
 #pragma once
 #include "Ticket.h"
-#include "Vector.h"
-#include "String.h"
 #include "Station.h"
+#include "FirstClassWagon.h"
+#include "SecondClassWagon.h"
+#include "SleepingWagon.h"
 #include <ctime>
 #include <chrono>
 
@@ -15,21 +16,35 @@ private:
 	Vector<Ticket> tickets;
 
 public:
-	User() = default;
-	User(const User& other) : tickets(other.tickets) {}
-	~User() = default;
+	User();
+	User(const String& username, const String& password);
+	User(const User& other);
 	User& operator=(const User& other);
+	User(User&& other) noexcept;
+	User& operator=(User&& other) noexcept;
+	~User();
 
 	const String& getName() const;
+	const String& getUsername() const;
+	const String& getUsername() const;
+	bool getIsLoggedIn() const;
+	void setLoggedIn(bool status);
+	void setPassword(const String& newPassword);
+
 	void addTicket(const Ticket& ticket);
 	const Vector<Ticket>& getTicket() const;
 	void printTickets() const;
 
-	void printStations(Vector<Station> stations) const;
-	void printSchedule(Station station) const;
-	void printScheduleDestination(const Vector<Train> trains, Station dest) const;
-	void printScheduleAtTime(Station station, const String& date, const String& time) const;
-	void printTrain(Train train) const;
-	void printWagon(Train train, Wagon wagon) const;
-	void buyTicket(Train train, Wagon wagon, String seatId, String ticketFileName); //extra params needed for types of wagons
+	void printStations(const Vector<Station> stations) const;
+	void printSchedule(const Station& station) const;
+	void printScheduleDestination(const Vector<Train>& trains, const Station& dest) const;
+	void printScheduleAtTime(const Station& station, const String& date, const String& time) const;
+	void printTrain(const Train& train) const;
+	void printWagon(const Train& train, const Wagon& wagon) const;
+	void buyTicket(const Train& train, const FirstClassWagon& wagon, const String& seatId, const String& ticketFileName);
+	void buyTicket(const Train& train, const SecondClassWagon& wagon, const String& seatId, const String& ticketFileName);
+	void buyTicket(const Train& train, const SleepingWagon& wagon, const String& seatId, const String& ticketFileName);
+
+	bool login(const String& username, const String& password);
+	void logout();
 };

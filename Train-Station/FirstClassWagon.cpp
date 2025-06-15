@@ -68,11 +68,14 @@ double FirstClassWagon::calculatePrice(size_t seatIndex, double extra) const
     return price + extra;
 }
 
-void FirstClassWagon::printLayout() const
+void FirstClassWagon::print() const
 {
-    std::cout << "First Class Wagon ID: " << getID() << std::endl;
-    std::cout << "Seats: " << getSeatCount() << std::endl;
+    Wagon::print();
     std::cout << "Comfort Factor: " << comfortFactor << std::endl;
     std::cout << "Food Included: " << (foodIncluded ? "Yes" : "No") << std::endl;
-    std::cout << "Layout: Spacious 2-1 seating arrangement" << std::endl;
+    std::cout << "|01 02|" << std::endl;
+    std::cout << "|03 04|" << std::endl;
+    std::cout << "|05 06|" << std::endl;
+    std::cout << "|07 08|" << std::endl;
+    std::cout << "|09 10|" << std::endl;
 }
