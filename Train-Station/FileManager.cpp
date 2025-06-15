@@ -271,7 +271,7 @@ bool FileManager::loadTrains(Vector<Train*>& trains)
                     std::getline(file, line); //BAGGAGE_PRICE
                     double baggagePrice = std::atof(line.c_str() + 14);
 
-                    SecondClassWagon* wagon = new SecondClassWagon(wagonId, basePrice, baggagePrice);
+                    SecondClassWagon* wagon = new SecondClassWagon(wagonId, seats, basePrice, baggagePrice);
                     currentTrain->addWagon(wagon);
                 }
                 else if (wagonType == String("SLEEPING"))

@@ -41,7 +41,7 @@ SecondClassWagon::~SecondClassWagon()
 {
 }
 
-SecondClassWagon::SecondClassWagon(const String& wagonId, double basePrice, double baggagePricePerKg)
+SecondClassWagon::SecondClassWagon(const String& wagonId, int seatcount, double basePrice, double baggagePricePerKg)
     : Wagon(wagonId, 20, basePrice), baggagePricePerKg(baggagePricePerKg)
 {
 }

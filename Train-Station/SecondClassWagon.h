@@ -14,7 +14,7 @@ public:
     SecondClassWagon& operator=(SecondClassWagon&& other) noexcept;
     ~SecondClassWagon();
 
-    SecondClassWagon(const String& wagonId, double basePrice, double baggagePricePerKg);
+    SecondClassWagon(const String& wagonId, int seatcount, double basePrice, double baggagePricePerKg);
 
     double getBaggagePricePerKg() const;
 

@@ -171,7 +171,7 @@ void Admin::addWagon(String& trainId, String& wagonType, double basePrice)
     }
     else if (wagonType == String("second") || wagonType == String("SecondClass"))
     {
-        wagon = new SecondClassWagon(newWagonId, basePrice, 2.0);
+        wagon = new SecondClassWagon(newWagonId, 20, basePrice, 2.0);
         std::cout << "Second Class wagon created successfully!" << std::endl;
     }
     else if (wagonType == String("sleeping") || wagonType == String("Sleeping"))
