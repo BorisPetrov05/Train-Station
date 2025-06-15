@@ -3,6 +3,7 @@
 #include <ctime>
 #include <sys/stat.h>
 #include <direct.h>
+#include <filesystem>
 
 const String FileManager::STATIONS_FILE = "data/stations.txt";
 const String FileManager::TRAINS_FILE = "data/trains.txt";
@@ -54,7 +55,7 @@ bool FileManager::fileExists(const String& filename)
 
 void FileManager::createDirectoryIfNotExists(const String& path)
 {
-    _mkdir(path.c_str()); //linker error
+    std::filesystem::create_directory(path.c_str());
 }
 
 bool FileManager::saveStations(const Vector<Station*>& stations)

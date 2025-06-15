@@ -51,7 +51,7 @@
     <ClInclude Include="Wagon.h">
       <Filter>Header Files\Wagons</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="Vector.hpp">
       <Filter>Header Files\Implementations</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
@@ -105,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,4 @@
 #pragma once
-#pragma warning(disable:4996)
 #include <iostream>
 #include <cstring>
 
@@ -9,73 +8,29 @@ private:
     char* data;
     size_t length;
 
-    void copyFrom(const String& other) 
-    {
-        length = other.length;
-        data = new char[length + 1];
-        std::strcpy(data, other.data);
-    }
+    void copyFrom(const String& other);
 
 public:
-    String() : data(new char[1] { '\0' }), length(0) {}
+    String();
 
-    String(const char* str) 
-    {
-        length = std::strlen(str);
-        data = new char[length + 1];
-        std::strcpy(data, str);
-    }
+    String(const char* str);
 
-    String(const String& other) 
-    {
-        copyFrom(other);
-    }
+    String(const String& other);
 
-    String& operator=(const String& other) 
-    {
-        if (this != &other) {
-            delete[] data;
-            copyFrom(other);
-        }
-        return *this;
-    }
+    String& operator=(const String& other);
 
-    ~String() 
-    {
-        delete[] data;
-    }
+    ~String();
 
-    const char* c_str() const { return data; }
-    size_t size() const { return length; }
+    const char* c_str() const;
+    size_t size() const;
 
-    bool operator==(const String& other) const 
-    {
-        return std::strcmp(data, other.data) == 0;
-    }
+    bool operator==(const String& other) const;
 
-    bool operator!=(const String& other) const 
-    {
-        return !(*this == other);
-    }
+    bool operator!=(const String& other) const;
 
-    String operator+(const String& other) const 
-    {
-        size_t newLen = length + other.length;
-        char* newData = new char[newLen + 1];
-        std::strcpy(newData, data);
-        std::strcat(newData, other.data);
-        String result(newData);
-        delete[] newData;
-        return result;
-    }
+    String operator+(const String& other) const;
 
-    friend std::ostream& operator<<(std::ostream& os, const String& str) 
-    {
-        return os << str.data;
-    }
+    friend std::ostream& operator<<(std::ostream& os, const String& str);
 
-    bool empty() const
-    {
-        return length == 0;
-    }
+    bool empty() const;
 };

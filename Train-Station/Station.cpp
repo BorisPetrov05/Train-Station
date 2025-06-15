@@ -1,5 +1,7 @@
 #include "Station.h"
 #include "Train.h"
+#include "String.h"
+#pragma warning(disable:4996)
 
 Station::Station(const String& name) : name(name)
 {
