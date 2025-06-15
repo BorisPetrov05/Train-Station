@@ -16,9 +16,6 @@
     <Filter Include="Header Files\Wagons">
       <UniqueIdentifier>{c8461e70-c21a-4e19-98a6-5259cc2c591e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\String&amp;Vector">
-      <UniqueIdentifier>{5bc03564-2541-43eb-bc4b-4c62ca0172cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Wagons">
       <UniqueIdentifier>{e3610e9e-2d00-4304-a136-b680aac1033b}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,9 @@
     </Filter>
     <Filter Include="Source Files\Users">
       <UniqueIdentifier>{d004e0f1-cb5a-4272-8623-a4358d7dd547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Implementations">
+      <UniqueIdentifier>{5bc03564-2541-43eb-bc4b-4c62ca0172cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,10 +52,10 @@
       <Filter>Header Files\Wagons</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>Header Files\String&amp;Vector</Filter>
+      <Filter>Header Files\Implementations</Filter>
     </ClInclude>
     <ClInclude Include="String.h">
-      <Filter>Header Files\String&amp;Vector</Filter>
+      <Filter>Header Files\Implementations</Filter>
     </ClInclude>
     <ClInclude Include="DiscountCard.h">
       <Filter>Header Files</Filter>
@@ -65,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="Administrator.h">
       <Filter>Header Files\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header Files\Implementations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Administrator.cpp">
       <Filter>Source Files\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

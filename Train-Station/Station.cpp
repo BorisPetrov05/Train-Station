@@ -42,7 +42,8 @@ Station& Station::operator=(Station&& other) noexcept
 
 Station::~Station()
 {
-    
+    departures.clear();
+    arrivals.clear();
 }
 
 const String& Station::getName() const

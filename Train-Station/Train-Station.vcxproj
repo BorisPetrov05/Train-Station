@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Administrator.h" />
     <ClInclude Include="DiscountCard.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="FirstClassWagon.h" />
     <ClInclude Include="SecondClassWagon.h" />
     <ClInclude Include="SleepingWagon.h" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Administrator.cpp" />
     <ClCompile Include="DiscountCard.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FirstClassWagon.cpp" />
     <ClCompile Include="SecondClassWagon.cpp" />
     <ClCompile Include="SleepingWagon.cpp" />

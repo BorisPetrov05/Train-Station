@@ -71,6 +71,11 @@ Train& Train::operator=(Train&& other) noexcept
 
 Train::~Train()
 {
+    for (size_t i = 0; i < wagons.size(); ++i)
+    {
+        delete wagons[i];
+    }
+    wagons.clear();
 }
 
 const String& Train::getID() const
@@ -128,24 +133,22 @@ void Train::addWagon(Wagon* wagon)
 
 void Train::removeWagon(const String& wagonId)
 {
-    for (size_t i = 0; i < wagons.size(); i++)
+    for (size_t i = 0; i < wagons.size(); ++i)
     {
-        if (wagons[i] && wagons[i]->getID() == wagonId)
+        if (wagons[i]->getID() == wagonId)
         {
+            delete wagons[i];
             wagons.erase(i);
-            break;
+            return;
         }
     }
 }
-
 Wagon* Train::findWagon(const String& wagonId)
 {
-    for (size_t i = 0; i < wagons.size(); i++)
+    for (size_t i = 0; i < wagons.size(); ++i)
     {
-        if (wagons[i] && wagons[i]->getID() == wagonId)
-        {
+        if (wagons[i]->getID() == wagonId)
             return wagons[i];
-        }
     }
     return nullptr;
 }

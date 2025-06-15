@@ -2,20 +2,15 @@
 #include "FirstClassWagon.h"
 #include "SecondClassWagon.h"
 #include "SleepingWagon.h"
+#include "FileManager.h"
 #include <iostream>
 #include <cstdlib>
 #include <string> //only for std::to_string()
 
-Admin::Admin() : User(), isAdmin(true)
-{
-
-}
+Admin::Admin() : User(), isAdmin(true) {}
 
 Admin::Admin(const String& username, const String& password)
-    : User(username, password), isAdmin(true)
-{
-
-}
+    : User(username, password), isAdmin(true) {}
 
 bool Admin::login(const String& username, const String& password)
 {
@@ -116,6 +111,11 @@ void Admin::addTrain(Vector<Station*>& stations, const String& stationName,
     std::cout << "Route: " << stationName.c_str() << " -> " << destination.c_str() << std::endl;
     std::cout << "Departure: " << departureTime.c_str() << std::endl;
     std::cout << "Arrival: " << arrivalTime.c_str() << std::endl;
+
+    Vector<Train*> allTrains;
+    FileManager::loadTrains(allTrains);
+    allTrains.push_back(newTrain);
+    FileManager::saveTrains(allTrains);
 }
 
 void Admin::removeTrain(String& trainId)
@@ -126,6 +126,30 @@ void Admin::removeTrain(String& trainId)
         return;
     }
 
+    Vector<Train*> trains;
+    FileManager::loadTrains(trains);
+
+    bool removed = false;
+    for (size_t i = 0; i < trains.size(); ++i)
+    {
+        if (trains[i]->getID() == trainId)
+        {
+            delete trains[i];
+            trains.erase(i);
+            removed = true;
+            break;
+        }
+    }
+
+    if (removed)
+    {
+        FileManager::saveTrains(trains);
+        std::cout << "Train " << trainId.c_str() << " removed successfully." << std::endl;
+    }
+    else
+    {
+        std::cout << "Train not found." << std::endl;
+    }
 }
 
 void Admin::addWagon(String& trainId, String& wagonType, double basePrice)
@@ -136,7 +160,6 @@ void Admin::addWagon(String& trainId, String& wagonType, double basePrice)
         return;
     }
 
-    //need global train system
     static int wagonCounter = 1;
     String newWagonId = String("W") + String(std::to_string(wagonCounter++).c_str());
     Wagon* wagon = nullptr;
@@ -162,10 +185,21 @@ void Admin::addWagon(String& trainId, String& wagonType, double basePrice)
         return;
     }
 
-    std::cout << "Wagon ID: " << newWagonId.c_str() << std::endl;
-    std::cout << "Base Price: " << basePrice << " lv." << std::endl;
-    //Note: Wagon created but needs to be added to train "
+    Vector<Train*> trains;
+    FileManager::loadTrains(trains);
 
+    for (size_t i = 0; i < trains.size(); ++i)
+    {
+        if (trains[i]->getID() == trainId)
+        {
+            trains[i]->addWagon(wagon);
+            FileManager::saveTrains(trains);
+            std::cout << "Wagon " << newWagonId.c_str() << " added to train " << trainId.c_str() << "." << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "Train not found." << std::endl;
     delete wagon;
 }
 
@@ -177,7 +211,21 @@ void Admin::removeWagon(String& trainId, String& wagonId)
         return;
     }
 
-    //need global wagon storage system
+    Vector<Train*> trains;
+    FileManager::loadTrains(trains);
+
+    for (size_t i = 0; i < trains.size(); ++i)
+    {
+        if (trains[i]->getID() == trainId)
+        {
+            trains[i]->removeWagon(wagonId);
+            FileManager::saveTrains(trains);
+            std::cout << "Wagon " << wagonId.c_str() << " removed from train " << trainId.c_str() << "." << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "Train not found." << std::endl;
 }
 
 void Admin::moveWagon(String& sourceTrainId, String& wagonId, String& destinationTrainId)
@@ -188,8 +236,37 @@ void Admin::moveWagon(String& sourceTrainId, String& wagonId, String& destinatio
         return;
     }
 
-    
-    //need global train system
+    Vector<Train*> trains;
+    FileManager::loadTrains(trains);
+    Train* source = nullptr;
+    Train* dest = nullptr;
+
+    for (size_t i = 0; i < trains.size(); ++i)
+    {
+        if (trains[i]->getID() == sourceTrainId)
+            source = trains[i];
+        if (trains[i]->getID() == destinationTrainId)
+            dest = trains[i];
+    }
+
+    if (!source || !dest)
+    {
+        std::cout << "One or both trains not found." << std::endl;
+        return;
+    }
+
+    Wagon* wagon = source->findWagon(wagonId);
+    if (!wagon)
+    {
+        std::cout << "Wagon not found in source train." << std::endl;
+        return;
+    }
+
+    source->removeWagon(wagonId);
+    dest->addWagon(wagon);
+    FileManager::saveTrains(trains);
+
+    std::cout << "Wagon moved successfully." << std::endl;
 }
 
 void Admin::createDiscountCard(String& discountType, String& name, int cardId, double discountPercent)
@@ -200,7 +277,11 @@ void Admin::createDiscountCard(String& discountType, String& name, int cardId, d
         return;
     }
 
-    //need global discountcard system
+    Vector<DiscountCard*> cards;
+    FileManager::loadDiscountCards(cards);
+    cards.push_back(new DiscountCard(discountType, name, cardId, discountPercent));
+    FileManager::saveDiscountCards(cards);
+    std::cout << "Discount card created successfully." << std::endl;
 }
 
 bool Admin::validateDiscountCard(int cardId)
@@ -211,7 +292,19 @@ bool Admin::validateDiscountCard(int cardId)
         return false;
     }
 
-    //Need global storage system
+    Vector<DiscountCard*> cards;
+    FileManager::loadDiscountCards(cards);
+
+    for (size_t i = 0; i < cards.size(); ++i)
+    {
+        if (cards[i]->getCardId() == cardId)
+        {
+            std::cout << "Discount card is valid." << std::endl;
+            return true;
+        }
+    }
+
+    std::cout << "Invalid discount card." << std::endl;
     return false;
 }
 
