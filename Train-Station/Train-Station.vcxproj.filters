@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Wagons">
       <UniqueIdentifier>{e3610e9e-2d00-4304-a136-b680aac1033b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Users">
+      <UniqueIdentifier>{9333e7e2-d806-4aeb-9e29-b30ddafb6241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Users">
+      <UniqueIdentifier>{d004e0f1-cb5a-4272-8623-a4358d7dd547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Train.h">
@@ -31,12 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ticket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Administrator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FirstClassWagon.h">
@@ -60,6 +60,12 @@
     <ClInclude Include="DiscountCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Administrator.h">
+      <Filter>Header Files\Users</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Station.cpp">
@@ -74,9 +80,6 @@
     <ClCompile Include="Ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FirstClassWagon.cpp">
       <Filter>Source Files\Wagons</Filter>
     </ClCompile>
@@ -88,6 +91,12 @@
     </ClCompile>
     <ClCompile Include="Wagon.cpp">
       <Filter>Source Files\Wagons</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Administrator.cpp">
+      <Filter>Source Files\Users</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

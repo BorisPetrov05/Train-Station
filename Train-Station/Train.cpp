@@ -162,6 +162,14 @@ void Train::print() const
     std::cout << "Departure Platform: " << departurePlatform << std::endl;
     std::cout << std::endl;
     std::cout << "Wagons:" << std::endl;
+
+    const Vector<Wagon*>& wagons = this->getWagons();
+    for (size_t i = 0; i < wagons.size(); i++)
+    {
+        std::cout << "  Wagon " << (i + 1) << " - ID: " << wagons[i]->getID() << std::endl;
+        wagons[i]->print();
+        std::cout << std::endl;
+    }
 }
 
 double Train::calculateTotalPrice() const

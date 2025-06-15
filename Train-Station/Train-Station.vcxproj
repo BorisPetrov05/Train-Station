@@ -141,6 +141,7 @@
     <ClInclude Include="Wagon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Administrator.cpp" />
     <ClCompile Include="DiscountCard.cpp" />
     <ClCompile Include="FirstClassWagon.cpp" />
     <ClCompile Include="SecondClassWagon.cpp" />
