@@ -1,19 +1,22 @@
 #include "Train.h"
 #include "Wagon.h"
+#include <iostream>
 
-Train::Train(const String& id, const String& dest, const String& dep,
-    const String& arr, double dist, double speed)
-    : trainID(id), destination(dest), departureTime(dep), arrivalTime(arr),
-    distance(dist), speed(speed)
+Train::Train(const String& id, const String& startStation, const String& dest,
+    const String& dep, const String& arr, double dist, double speed, int platform)
+    : trainID(id), startingStation(startStation), destination(dest),
+    departureTime(dep), arrivalTime(arr), distance(dist), speed(speed),
+    departurePlatform(platform)
 {
 }
 
 Train::Train(const Train& other)
-    : trainID(other.trainID), destination(other.destination),
-    departureTime(other.departureTime), arrivalTime(other.arrivalTime),
-    distance(other.distance), speed(other.speed), wagons(other.wagons)
+    : trainID(other.trainID), startingStation(other.startingStation),
+    destination(other.destination), departureTime(other.departureTime),
+    arrivalTime(other.arrivalTime), distance(other.distance),
+    speed(other.speed), departurePlatform(other.departurePlatform),
+    wagons(other.wagons)
 {
-
 }
 
 Train& Train::operator=(const Train& other)
@@ -21,23 +24,28 @@ Train& Train::operator=(const Train& other)
     if (this != &other)
     {
         trainID = other.trainID;
+        startingStation = other.startingStation;
         destination = other.destination;
         departureTime = other.departureTime;
         arrivalTime = other.arrivalTime;
         distance = other.distance;
         speed = other.speed;
+        departurePlatform = other.departurePlatform;
         wagons = other.wagons;
     }
     return *this;
 }
 
 Train::Train(Train&& other) noexcept
-    : trainID(std::move(other.trainID)), destination(std::move(other.destination)),
-    departureTime(std::move(other.departureTime)), arrivalTime(std::move(other.arrivalTime)),
-    distance(other.distance), speed(other.speed), wagons(std::move(other.wagons))
+    : trainID(std::move(other.trainID)), startingStation(std::move(other.startingStation)),
+    destination(std::move(other.destination)), departureTime(std::move(other.departureTime)),
+    arrivalTime(std::move(other.arrivalTime)), distance(other.distance),
+    speed(other.speed), departurePlatform(other.departurePlatform),
+    wagons(std::move(other.wagons))
 {
     other.distance = 0.0;
     other.speed = 0.0;
+    other.departurePlatform = 0;
 }
 
 Train& Train::operator=(Train&& other) noexcept
@@ -45,27 +53,34 @@ Train& Train::operator=(Train&& other) noexcept
     if (this != &other)
     {
         trainID = std::move(other.trainID);
+        startingStation = std::move(other.startingStation);
         destination = std::move(other.destination);
         departureTime = std::move(other.departureTime);
         arrivalTime = std::move(other.arrivalTime);
         distance = other.distance;
         speed = other.speed;
+        departurePlatform = other.departurePlatform;
         wagons = std::move(other.wagons);
 
         other.distance = 0.0;
         other.speed = 0.0;
+        other.departurePlatform = 0;
     }
     return *this;
 }
 
 Train::~Train()
 {
-
 }
 
 const String& Train::getID() const
 {
     return trainID;
+}
+
+const String& Train::getStartingStation() const
+{
+    return startingStation;
 }
 
 const String& Train::getDestination() const
@@ -91,6 +106,11 @@ double Train::getDistance() const
 double Train::getSpeed() const
 {
     return speed;
+}
+
+int Train::getDeparturePlatform() const
+{
+    return departurePlatform;
 }
 
 const Vector<Wagon*>& Train::getWagons() const
@@ -128,6 +148,20 @@ Wagon* Train::findWagon(const String& wagonId)
         }
     }
     return nullptr;
+}
+
+void Train::print() const
+{
+    std::cout << "===Train ID: " << trainID.c_str() << "===" << std::endl;
+    std::cout << "Starting Station: " << startingStation.c_str() << std::endl;
+    std::cout << "Destination: " << destination.c_str() << std::endl;
+    std::cout << "Distance: " << distance << " km" << std::endl;
+    std::cout << "Speed: " << speed << " km/h" << std::endl;
+    std::cout << "Departure Time: " << departureTime.c_str() << std::endl;
+    std::cout << "Arrival Time: " << arrivalTime.c_str() << std::endl;
+    std::cout << "Departure Platform: " << departurePlatform << std::endl;
+    std::cout << std::endl;
+    std::cout << "Wagons:" << std::endl;
 }
 
 double Train::calculateTotalPrice() const

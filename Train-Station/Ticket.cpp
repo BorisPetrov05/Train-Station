@@ -1,6 +1,11 @@
 #include "Ticket.h"
 #include <iostream>
 
+Ticket::Ticket() : trainID(0), wagonID(0), seatID(0), price(0.0) 
+{
+
+}
+
 Ticket::Ticket(const String& trainID, const String& wagonID, size_t seatID, double price)
     : trainID(trainID), wagonID(wagonID), seatID(seatID), price(price)
 {

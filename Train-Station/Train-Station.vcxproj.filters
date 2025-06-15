@@ -19,6 +19,9 @@
     <Filter Include="Header Files\String&amp;Vector">
       <UniqueIdentifier>{5bc03564-2541-43eb-bc4b-4c62ca0172cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Wagons">
+      <UniqueIdentifier>{e3610e9e-2d00-4304-a136-b680aac1033b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Train.h">
@@ -59,15 +62,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Wagon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FirstClassWagon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SleepingWagon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Station.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,8 +77,17 @@
     <ClCompile Include="User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FirstClassWagon.cpp">
+      <Filter>Source Files\Wagons</Filter>
+    </ClCompile>
     <ClCompile Include="SecondClassWagon.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Wagons</Filter>
+    </ClCompile>
+    <ClCompile Include="SleepingWagon.cpp">
+      <Filter>Source Files\Wagons</Filter>
+    </ClCompile>
+    <ClCompile Include="Wagon.cpp">
+      <Filter>Source Files\Wagons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

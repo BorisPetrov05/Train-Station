@@ -26,7 +26,6 @@ public:
 
 	const String& getName() const;
 	const String& getUsername() const;
-	const String& getUsername() const;
 	bool getIsLoggedIn() const;
 	void setLoggedIn(bool status);
 	void setPassword(const String& newPassword);
@@ -36,13 +35,13 @@ public:
 	void printTickets() const;
 
 	void printStations(const Vector<Station> stations) const;
-	void printSchedule(const Station& station) const;
+	void printSchedule(const Station& station, const Vector<Train>& trains) const;
 	void printScheduleDestination(const Vector<Train>& trains, const Station& dest) const;
-	void printScheduleAtTime(const Station& station, const String& date, const String& time) const;
+	void printScheduleAtTime(const Station& station, const String& date, const String& time, const Vector<Train>& trains) const;
 	void printTrain(const Train& train) const;
 	void printWagon(const Train& train, const Wagon& wagon) const;
 	void buyTicket(const Train& train, const FirstClassWagon& wagon, const String& seatId, const String& ticketFileName);
-	void buyTicket(const Train& train, const SecondClassWagon& wagon, const String& seatId, const String& ticketFileName);
+	void buyTicket(const Train& train, const SecondClassWagon& wagon, const String& seatId, const String& ticketFileName, int luggageKg);
 	void buyTicket(const Train& train, const SleepingWagon& wagon, const String& seatId, const String& ticketFileName);
 
 	bool login(const String& username, const String& password);

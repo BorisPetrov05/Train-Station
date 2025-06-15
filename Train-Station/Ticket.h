@@ -10,6 +10,7 @@ private:
     double price;
 
 public:
+    Ticket();
     Ticket(const String& trainID, const String& wagonID, size_t seatID, double price);
     Ticket(const Ticket& other);
     Ticket& operator=(const Ticket& other);
