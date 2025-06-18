@@ -28,6 +28,7 @@ public:
 	const String& getUsername() const;
 	bool getIsLoggedIn() const;
 	void setLoggedIn(bool status);
+	void setUsername(const String& Username);
 	void setPassword(const String& newPassword);
 
 	void addTicket(const Ticket& ticket);

@@ -76,6 +76,11 @@ void User::setLoggedIn(bool status)
 	isLoggedIn = status;
 }
 
+void User::setUsername(const String& newUsername)
+{
+	username = newUsername;
+}
+
 void User::setPassword(const String& newPassword)
 {
 	password = newPassword;

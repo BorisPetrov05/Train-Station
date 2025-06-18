@@ -7,22 +7,27 @@
 #include <cstdlib>
 #include <string> //only for std::to_string()
 
-Admin::Admin() : User(), isAdmin(true) {}
+Admin::Admin() : User(), isAdmin(false) {}
 
 Admin::Admin(const String& username, const String& password)
-    : User(username, password), isAdmin(true) {}
+    : User(username, password), isAdmin(false) {}
 
 bool Admin::login(const String& username, const String& password)
 {
-    if (User::login(username, password))
+    //Only allow login with hardcoded admin credentials
+    if (username == String("admin") && password == String("admin"))
     {
+        User::setUsername(String("admin"));
+        User::setPassword(String("admin"));
+        User::setLoggedIn(true);
         isAdmin = true;
-        std::cout << "Admin login successful! Welcome, " << username.c_str() << "!" << std::endl;
+        std::cout << "Admin login successful! Welcome, admin!" << std::endl;
         return true;
     }
     else
     {
         isAdmin = false;
+        std::cout << "Invalid admin credentials. Only 'admin'/'admin' is allowed." << std::endl;
         return false;
     }
 }

@@ -687,7 +687,7 @@ void processCommand(const String& input)
         std::cout << "print-train <trainID>\n";
         std::cout << "print-wagon <trainID> <wagonID>\n";
         std::cout << "buy-ticket <trainID> <wagonID> <seatID> <ticketFileName> [extra params]\n";
-        std::cout << "buy-ticket - discount <trainID> <wagonID> <seatID> <ticketFileName> <cardFile> [extra params]\n";
+        std::cout << "buy-ticket-discount <trainID> <wagonID> <seatID> <ticketFileName> <cardFile> [extra params]\n";
         std::cout << "login <username> <password>\n";
         std::cout << "add-station <n>\n";
         std::cout << "add-train <station> <destination> <distance> <speed> <departuredate> <departuretime>\n";
