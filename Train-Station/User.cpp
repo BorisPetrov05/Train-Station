@@ -321,7 +321,6 @@ bool User::login(const String& username, const String& password)
 	}
 	else
 	{
-		std::cout << "Error: Incorrect credentials!" << std::endl;
 		return false;
 	}
 }

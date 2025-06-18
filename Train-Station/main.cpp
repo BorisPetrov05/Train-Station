@@ -27,28 +27,7 @@ validate-discount-card <cardID>
 #include "DiscountCard.h"
 #include "FileManager.h"
 #include <cstdlib>
-
-Vector<Station*> stations;
-Vector<Train*> trains;
-Vector<User*> users;
-Vector<DiscountCard*> discountCards;
-User* currentUser = nullptr;
-Admin* currentAdmin = nullptr;
-
-#include "Administrator.h"
-#include "User.h"
-#include "Station.h"
-#include "Train.h"
-#include "FirstClassWagon.h"
-#include "SecondClassWagon.h"
-#include "SleepingWagon.h"
-#include "DiscountCard.h"
-#include "FileManager.h"
-#include "Vector.hpp"
-#include "String.h"
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
+#pragma warning(disable:4996)
 
 Vector<Station*> stations;
 Vector<Train*> trains;
@@ -396,7 +375,6 @@ void login(const String& username, const String& password)
         currentAdmin = nullptr;
     }
 
-    // Try user login
     for (size_t i = 0; i < users.size(); ++i)
     {
         if (users[i]->login(username, password))
@@ -701,6 +679,7 @@ void processCommand(const String& input)
     else if (command == "help")
     {
         std::cout << "Available commands:\n";
+        std::cout << "login <username> <password>\n";
         std::cout << "print-stations\n";
         std::cout << "print-schedule <station>\n";
         std::cout << "print-schedule - destination <station> <destination>\n";

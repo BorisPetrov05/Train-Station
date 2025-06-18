@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include <direct.h>
 #include <filesystem>
+#pragma warning(disable:4996)
+
 
 const String FileManager::STATIONS_FILE = "data/stations.txt";
 const String FileManager::TRAINS_FILE = "data/trains.txt";
@@ -429,7 +431,45 @@ String FileManager::generateUniqueID(const String& prefix)
 {
     static int counter = 1000;
     char buffer[50];
-    sprintf(buffer, "%s%d", prefix.c_str(), counter++);
+
+    const char* prefixStr = prefix.c_str();
+    int bufferIndex = 0;
+    while (*prefixStr && bufferIndex < 45)
+    {
+        buffer[bufferIndex++] = *prefixStr++;
+    }
+
+    int currentCounter = counter++;
+    char numberBuffer[10];
+    int numberIndex = 0;
+
+    if (currentCounter == 0)
+    {
+        numberBuffer[numberIndex++] = '0';
+    }
+    else
+    {
+        int temp = currentCounter;
+        while (temp > 0)
+        {
+            numberBuffer[numberIndex++] = '0' + (temp % 10);
+            temp /= 10;
+        }
+
+        for (int i = 0; i < numberIndex / 2; i++)
+        {
+            char swap = numberBuffer[i];
+            numberBuffer[i] = numberBuffer[numberIndex - 1 - i];
+            numberBuffer[numberIndex - 1 - i] = swap;
+        }
+    }
+
+    for (int i = 0; i < numberIndex && bufferIndex < 49; i++)
+    {
+        buffer[bufferIndex++] = numberBuffer[i];
+    }
+
+    buffer[bufferIndex] = '\0';
     return String(buffer);
 }
 
@@ -527,4 +567,96 @@ bool FileManager::restoreBackup(const String& backupName)
     String backupDir = String("backups/") + backupName;
 
     return fileExists(backupDir);
+}
+
+bool FileManager::saveUsers(const Vector<User*>& users)
+{
+    createDirectoryIfNotExists("data");
+
+    std::ofstream file(USERS_FILE.c_str());
+    if (!file.is_open())
+        return false;
+
+    for (size_t i = 0; i < users.size(); ++i)
+    {
+        const User* user = users[i];
+        file << "USER:" << user->getUsername().c_str() << std::endl;
+        file << "PASSWORD:" << user->getUsername().c_str() << std::endl; 
+        file << "LOGGED_IN:" << (user->getIsLoggedIn() ? "1" : "0") << std::endl;
+
+        const Vector<Ticket>& tickets = user->getTicket();
+        file << "TICKETS:" << tickets.size() << std::endl;
+
+        for (size_t j = 0; j < tickets.size(); ++j)
+        {
+            const Ticket& ticket = tickets[j];
+            file << "TICKET_TRAIN:" << ticket.getTrainID().c_str() << std::endl;
+            file << "TICKET_WAGON:" << ticket.getWagonID().c_str() << std::endl;
+            file << "TICKET_SEAT:" << ticket.getSeatID() << std::endl;
+            file << "TICKET_PRICE:" << ticket.getPrice() << std::endl;
+        }
+
+        file << "---" << std::endl;
+    }
+
+    file.close();
+    return true;
+}
+
+bool FileManager::loadUsers(Vector<User*>& users)
+{
+    if (!fileExists(USERS_FILE))
+        return false;
+
+    std::ifstream file(USERS_FILE.c_str());
+    if (!file.is_open())
+        return false;
+
+    std::string line;
+    User* currentUser = nullptr;
+
+    while (std::getline(file, line))
+    {
+        String strLine(line.c_str());
+
+        if (strLine.size() >= 5 && std::strncmp(strLine.c_str(), "USER:", 5) == 0)
+        {
+            String username(strLine.c_str() + 5);
+
+            std::getline(file, line); //PASSWORD
+            String password(line.c_str() + 9);
+
+            std::getline(file, line); //LOGGED_IN
+            bool loggedIn = (line.c_str()[10] == '1');
+
+            currentUser = new User(username, password);
+            currentUser->setLoggedIn(loggedIn);
+
+            std::getline(file, line); //TICKETS
+            int ticketCount = std::atoi(line.c_str() + 8);
+
+            for (int i = 0; i < ticketCount; ++i)
+            {
+                std::getline(file, line); //TICKET_TRAIN
+                String trainId(line.c_str() + 13);
+
+                std::getline(file, line); //TICKET_WAGON
+                String wagonId(line.c_str() + 13);
+
+                std::getline(file, line); //TICKET_SEAT
+                size_t seatId = std::atoi(line.c_str() + 12);
+
+                std::getline(file, line); //TICKET_PRICE
+                double price = std::atof(line.c_str() + 13);
+
+                Ticket ticket(trainId, wagonId, seatId, price);
+                currentUser->addTicket(ticket);
+            }
+
+            users.push_back(currentUser);
+        }
+    }
+
+    file.close();
+    return true;
 }

@@ -22,7 +22,6 @@ bool Admin::login(const String& username, const String& password)
     }
     else
     {
-        std::cout << "Error: Invalid admin credentials!" << std::endl;
         isAdmin = false;
         return false;
     }
@@ -51,10 +50,8 @@ void Admin::addTrain(Vector<Station*>& stations, const String& stationName,
         std::cout << "Error: Admin authentication required." << std::endl;
         return;
     }
-
     Station* startStation = nullptr;
     Station* destStation = nullptr;
-
     for (size_t i = 0; i < stations.size(); i++)
     {
         if (stations[i]->getName() == stationName)
@@ -62,34 +59,27 @@ void Admin::addTrain(Vector<Station*>& stations, const String& stationName,
         if (stations[i]->getName() == destination)
             destStation = stations[i];
     }
-
     if (!startStation || !destStation)
     {
         std::cout << "Error: One or both stations do not exist." << std::endl;
         return;
     }
-
     static int trainCounter = 1000;
     String newTrainId = String("T") + String(std::to_string(trainCounter++).c_str());
-
     double travelTimeHours = distance / speed;
     int travelHours = (int)travelTimeHours;
     int travelMinutes = (int)((travelTimeHours - travelHours) * 60);
-
     const char* depTimeStr = departureTime.c_str();
     int depHour = 0;
     int depMinute = 0;
-
     char* endPtr;
     depHour = std::strtol(depTimeStr, &endPtr, 10);
     if (*endPtr == ':')
     {
         depMinute = std::strtol(endPtr + 1, nullptr, 10);
     }
-
     int arrHour = depHour + travelHours;
     int arrMinute = depMinute + travelMinutes;
-
     if (arrMinute >= 60)
     {
         arrHour++;
@@ -97,21 +87,23 @@ void Admin::addTrain(Vector<Station*>& stations, const String& stationName,
     }
 
     char arrTimeBuffer[10];
-    std::sprintf(arrTimeBuffer, "%02d:%02d", arrHour, arrMinute);
+    arrTimeBuffer[0] = '0' + (arrHour / 10);
+    arrTimeBuffer[1] = '0' + (arrHour % 10);
+    arrTimeBuffer[2] = ':';
+    arrTimeBuffer[3] = '0' + (arrMinute / 10);
+    arrTimeBuffer[4] = '0' + (arrMinute % 10);
+    arrTimeBuffer[5] = '\0';
     String arrivalTime(arrTimeBuffer);
 
     Train* newTrain = new Train(newTrainId, stationName, destination,
         departureTime, arrivalTime, distance, speed, 1);
-
     startStation->addDeparture(newTrain);
     destStation->addArrival(newTrain);
-
     std::cout << "Train added successfully!" << std::endl;
     std::cout << "Train ID: " << newTrainId.c_str() << std::endl;
     std::cout << "Route: " << stationName.c_str() << " -> " << destination.c_str() << std::endl;
     std::cout << "Departure: " << departureTime.c_str() << std::endl;
     std::cout << "Arrival: " << arrivalTime.c_str() << std::endl;
-
     Vector<Train*> allTrains;
     FileManager::loadTrains(allTrains);
     allTrains.push_back(newTrain);
@@ -317,3 +309,4 @@ String Admin::getUsername() const
 {
     return User::getUsername();
 }
+

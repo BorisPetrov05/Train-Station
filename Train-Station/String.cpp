@@ -1,4 +1,5 @@
 #include "String.h"
+#pragma warning(disable:4996)
 
 void String::copyFrom(const String& other)
 {
@@ -11,9 +12,18 @@ String::String() : data(new char[1] { '\0' }), length(0) {}
 
 String::String(const char* str)
 {
-    length = std::strlen(str);
-    data = new char[length + 1];
-    std::strcpy(data, str);
+    if (str == nullptr)
+    {
+        length = 0;
+        data = new char[1];
+        data[0] = '\0';
+    }
+    else
+    {
+        length = std::strlen(str);
+        data = new char[length + 1];
+        std::strcpy(data, str);
+    }
 }
 
 String::String(const String& other)
@@ -53,11 +63,12 @@ bool String::operator!=(const String& other) const
 String String::operator+(const String& other) const
 {
     size_t newLen = length + other.length;
-    char* newData = new char[newLen + 1];
-    std::strcpy(newData, data);
-    std::strcat(newData, other.data);
-    String result(newData);
-    delete[] newData;
+    String result;
+    delete[] result.data;
+    result.length = newLen;
+    result.data = new char[newLen + 1];
+    std::strcpy(result.data, data);
+    std::strcat(result.data, other.data);
     return result;
 }
 
